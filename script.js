@@ -45,14 +45,15 @@ const showCards = () => {
 };
 
 const addToCart = (product) => {
-  const existingProduct = cartProduct.find(item => item.id === product.id);
-  if(existingProduct) {
-    alert('Item already in your cart!')
+  const existingProduct = cartProduct.find((item) => item.id === product.id);
+  if (existingProduct) {
+    alert("Item already in your cart!");
     return;
   }
   cartProduct.push(product);
 
   let quantity = 1;
+  let price = parseFloat(product.price.replace("$", ""));
 
   const cartItem = document.createElement("div");
   cartItem.classList.add("item");
@@ -62,7 +63,7 @@ const addToCart = (product) => {
     </div>
     <div class="detail">
       <h4>${product.name}</h4>
-      <h4 class="price">${product.price}</h4>
+      <h4 class="item-total">${product.price}</h4>
     </div>
     <div class="flex">
       <a href="#" class="quantity-btn minus">
@@ -77,14 +78,29 @@ const addToCart = (product) => {
 
   cartList.appendChild(cartItem);
 
-  const plusBtn = cartItem.querySelector('.plus');
+  const plusBtn = cartItem.querySelector(".plus");
+  const quantityValue = cartItem.querySelector(".quantity-value");
+  const itemTotal = cartItem.querySelector(".item-total");
+  const minusBtn = cartItem.querySelector(".minus");
 
-  const quantityValue = cartItem.querySelector('.quantity-value');
-
-  plusBtn.addEventListener('click', ()=> {
-    quantity++
+  plusBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    quantity++;
     quantityValue.textContent = quantity;
-  })
+    itemTotal.textContent = `$${(price * quantity).toFixed(2)}`;
+  });
+  minusBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (quantity > 1) {
+      quantity--;
+      quantityValue.textContent = quantity;
+      itemTotal.textContent = `$${(price * quantity).toFixed(2)}`;
+    }
+    else {
+      cartItem.remove();
+      cartProduct = cartProduct.filter(item => item.id !== product.id);
+    }
+  });
 };
 
 const initApp = () => {
