@@ -13,13 +13,22 @@ const cardList = document.querySelector(".card-list");
 const cartList = document.querySelector(".cart-list");
 const cartTotal = document.querySelector(".cart-total");
 const cartValue = document.querySelector(".cart-value");
+const clearCartBtn = document.querySelector(".clear-cart-btn");
 
-cartIcon.addEventListener("click", () =>
-  cartTab.classList.add("cart-tab-active")
-);
-closeBtn.addEventListener("click", () =>
-  cartTab.classList.remove("cart-tab-active")
-);
+cartIcon.addEventListener("click", (e) => {
+  e.stopPropagation();
+  cartTab.classList.add("cart-tab-active");
+});
+closeBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  cartTab.classList.remove("cart-tab-active");
+});
+cartTab.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
+document.addEventListener("click", () => {
+  cartTab.classList.remove("cart-tab-active");
+});
 
 let productList = [];
 let cartProduct = [];
@@ -125,6 +134,14 @@ const addToCart = (product) => {
     }
   });
 };
+
+clearCartBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  cartProduct = [];
+  cartList.innerHTML = "";
+  cartTotal.textContent = "$0.00";
+  cartValue.textContent = "0";
+})
 
 const initApp = () => {
   fetch("products.json")
