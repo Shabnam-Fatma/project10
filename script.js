@@ -14,6 +14,9 @@ const cartList = document.querySelector(".cart-list");
 const cartTotal = document.querySelector(".cart-total");
 const cartValue = document.querySelector(".cart-value");
 const clearCartBtn = document.querySelector(".clear-cart-btn");
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+const bars = document.querySelector(".fa-bars");
 
 cartIcon.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -29,6 +32,9 @@ cartTab.addEventListener("click", (e) => {
 document.addEventListener("click", () => {
   cartTab.classList.remove("cart-tab-active");
 });
+
+hamburger.addEventListener("click", () => mobileMenu.classList.toggle("mobile-menu-active"))
+hamburger.addEventListener("click", () => bars.classList.toggle("fa-xmark"))
 
 let productList = [];
 let cartProduct = [];
