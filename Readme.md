@@ -122,6 +122,7 @@ foodie/
 ├── style.css
 ├── script.js
 ├── products.json
+├── Readme.md
 │
 ├── best-quality.png
 ├── burger.png
